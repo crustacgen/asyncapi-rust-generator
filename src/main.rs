@@ -1,7 +1,7 @@
 mod generator;
 mod parser;
 use askama::Template;
-use generator::{cargo_fmt, cargo_init_project, write_to_file, PublishTemplate};
+use generator::{cargo_add, cargo_fmt, cargo_init_project, write_to_file, PublishTemplate};
 use parser::parse_asyncapi_yaml_file;
 use std::{fs::create_dir_all, path::Path};
 
@@ -29,4 +29,5 @@ fn main() {
 
     cargo_init_project(output_path);
     cargo_fmt(&output_path.join("src/main.rs"));
+    cargo_add(output_path, "tokio"); // when there are more crates move to generator.rs
 }

@@ -40,10 +40,11 @@ pub fn cargo_fmt(path: &PathBuf) -> Output {
         .expect("failed to format")
 }
 
-pub fn cargo_add(project_name: &str, crate_name: &str) {
-    todo!();
-}
-
-pub fn generate() {
-    todo!();
+pub fn cargo_add(path: &PathBuf, crate_name: &str) {
+    Command::new("cargo")
+        .arg("add")
+        .arg(crate_name)
+        .arg(String::from("--manifest-path=") + crate_name)
+        .output()
+        .expect("failed to add crate");
 }
