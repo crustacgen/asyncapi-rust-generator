@@ -4,7 +4,7 @@ use askama::Template;
 use std::{
     fs::File,
     io::{Error, Write},
-    path::PathBuf,
+    path::{Path, PathBuf},
     process::{Command, Output},
 };
 
@@ -40,11 +40,11 @@ pub fn cargo_fmt(path: &PathBuf) -> Output {
         .expect("failed to format")
 }
 
-pub fn cargo_add(path: &PathBuf, crate_name: &str) {
+pub fn cargo_add(path: &Path, crate_name: &str) {
     Command::new("cargo")
         .arg("add")
         .arg(crate_name)
-        .arg(String::from("--manifest-path=") + crate_name)
+        .arg(String::from("--manifest-path=") + path.to_str().unwrap() + "/Cargo.toml")
         .output()
         .expect("failed to add crate");
 }
